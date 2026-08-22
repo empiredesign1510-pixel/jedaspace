@@ -111,7 +111,7 @@ export function showSetupRequired(target, title = "Firebase belum dihubungkan") 
     <section class="state-card state-warning">
       <div class="state-icon">⚙️</div>
       <h2>${escapeHTML(title)}</h2>
-      <p>Isi konfigurasi Firebase di <code>js/firebase-config.js</code>, lalu refresh halaman.</p>
+      <p>Konfigurasi Firebase tidak terbaca. Pastikan file <code>js/firebase-config.js</code> ikut ter-upload ke GitHub.</p>
       <p class="muted">Panduan langkah demi langkah tersedia di file <strong>SETUP-HP.txt</strong>.</p>
     </section>`;
 }

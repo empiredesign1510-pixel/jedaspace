@@ -1,16 +1,12 @@
 import {
   db,
-  storage,
   doc,
   setDoc,
   updateDoc,
   collection,
   onSnapshot,
   serverTimestamp,
-  writeBatch,
-  ref,
-  uploadBytes,
-  getDownloadURL
+  writeBatch
 } from "./firebase-core.js";
 import { mountStaffAuth } from "./staff-auth.js";
 import {
@@ -189,8 +185,6 @@ function openMenuForm(item = null) {
   document.querySelector("#menuVariants").value = stringifyVariantGroups(item?.optionGroups || []);
   document.querySelector("#menuAddons").value = stringifyAddons(item?.addons || []);
   document.querySelector("#menuImageUrl").value = item?.imageUrl || "";
-  document.querySelector("#menuImage").value = "";
-  document.querySelector("#currentImageHint").textContent = item?.imageUrl ? "Foto saat ini terisi. Upload file baru hanya jika Firebase Storage sudah aktif." : "Upload file membutuhkan Firebase Storage.";
   openModal("menuModal");
 }
 
@@ -202,15 +196,7 @@ async function saveMenu(event) {
     const existingId = document.querySelector("#menuId").value;
     const id = existingId || randomId("menu");
     const existing = menuItems.find((item)=>item.id===id);
-    let imageUrl = document.querySelector("#menuImageUrl").value.trim() || existing?.imageUrl || "";
-    const file = document.querySelector("#menuImage").files[0];
-    if (file) {
-      if (!file.type.startsWith("image/")) throw new Error("File harus berupa gambar");
-      if (file.size > 5 * 1024 * 1024) throw new Error("Ukuran gambar maksimal 5 MB");
-      const storageRef = ref(storage, `menu/${id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"-")}`);
-      await uploadBytes(storageRef,file,{contentType:file.type});
-      imageUrl = await getDownloadURL(storageRef);
-    }
+    const imageUrl = document.querySelector("#menuImageUrl").value.trim() || existing?.imageUrl || "";
     await setDoc(doc(db,"menu",id),{
       name:document.querySelector("#menuName").value.trim(),
       categoryId:document.querySelector("#menuCategory").value,

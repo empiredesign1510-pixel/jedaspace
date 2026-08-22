@@ -1,23 +1,17 @@
-// JedaSpace Firebase configuration
-// 1) Firebase Console > Project settings > Your apps > Web app
-// 2) Replace the values below with your own config.
-// Firebase web config is not a service-account secret. Security is enforced by
-// Firebase Authentication + Firestore/Storage Security Rules.
+// JedaSpace Firebase Web configuration
+// Project: jedaspace-96b6e
+// Firebase Storage is intentionally NOT used in this project.
+// Security is enforced by Firebase Authentication + Firestore Security Rules.
 
 export const firebaseConfig = {
-  apiKey: "PASTE_API_KEY_HERE",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "PASTE_MESSAGING_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyCYsL-OCePulzxZBioPo3KVXuv4DdqBgdg",
+  authDomain: "jedaspace-96b6e.firebaseapp.com",
+  projectId: "jedaspace-96b6e",
+  messagingSenderId: "541190751334",
+  appId: "1:541190751334:web:b58e513d7a3c0c8bb0d9a7",
+  measurementId: "G-GHWM17D4QR"
 };
 
 export function isFirebaseConfigured() {
-  return Boolean(
-    firebaseConfig.apiKey &&
-    !firebaseConfig.apiKey.includes("PASTE_") &&
-    firebaseConfig.projectId &&
-    !firebaseConfig.projectId.includes("PASTE_")
-  );
+  return firebaseConfig.projectId === "jedaspace-96b6e" && Boolean(firebaseConfig.apiKey);
 }

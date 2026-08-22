@@ -52,7 +52,7 @@ let orderFallbackTimer = null;
 
 function safeImageUrl(url) {
   try {
-    const parsed = new URL(url);
+    const parsed = new URL(String(url || "").trim(), location.href);
     return ["http:", "https:"].includes(parsed.protocol) ? parsed.href : "";
   } catch {
     return "";
